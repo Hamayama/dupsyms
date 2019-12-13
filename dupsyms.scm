@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8 -*-
 ;;
 ;; dupsyms.scm
-;; 2019-12-13 v1.00
+;; 2019-12-13 v1.01
 ;;
 ;; ＜内容＞
 ;;   Gauche で、import されたシンボルの重複チェックを行うための
@@ -16,7 +16,8 @@
     dupsyms))
 (select-module dupsyms)
 
-;; check if the imported duplicate symbols exist
+;; check if the imported duplicate symbols exist.
+;;  return is '((sym mod) (sym mod) ...)
 (define-syntax dupsyms
   (syntax-rules ()
     [(_) (%dupsyms (current-module))]))
@@ -33,7 +34,7 @@
             (loop (read)))))))
   (get-duplicates (reverse imported-list) equal? car))
 
-;; get the list consisting only of duplicate elements
+;; get the list consisting only of duplicate elements.
 ;;  e.g. '(1 2 2 3 4 4 4 5 6) ==> '(2 2 4 4 4)
 (define (get-duplicates list :optional (cmpfn equal?) (keyfn identity))
   (let loop ([list list] [ret '()] [hit-prev #f])
