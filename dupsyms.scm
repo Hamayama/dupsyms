@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8 -*-
 ;;
 ;; dupsyms.scm
-;; 2019-12-14 v1.02
+;; 2019-12-14 v1.03
 ;;
 ;; ＜内容＞
 ;;   Gauche で、import されたシンボルの重複チェックを行うための
@@ -21,8 +21,7 @@
   (syntax-rules ()
     [(_) (%dupsyms (current-module))]))
 (define (%dupsyms module)
-  (define imported-list (%apropos #/.*/ module #f))
-  (get-duplicates imported-list equal? car))
+  (get-duplicates (%apropos #/.*/ module #f) equal? car))
 
 
 ;; get the list consisting only of duplicate elements.
