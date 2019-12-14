@@ -30,7 +30,7 @@
 (import mod-B)
 
 (test-section "dupsyms")
-(test* "dupsyms-1" 
+(test* "dupsyms-1"
        '((aaa mod-A) (aaa mod-B) (f1 mod-A) (f1 mod-B))
        (filter-by-module (dupsyms) '(mod-A mod-B)))
 
