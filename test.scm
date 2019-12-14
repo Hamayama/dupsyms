@@ -9,10 +9,10 @@
 (use dupsyms)
 (test-module 'dupsyms)
 
-(define (filter-by-module imported-list mod-list)
+(define (filter-by-module result-list mod-list)
   (filter
    (^[item] (member (cadr item) mod-list))
-   imported-list))
+   result-list))
 
 (define-module mod-A
   (export aaa bbb f1)
