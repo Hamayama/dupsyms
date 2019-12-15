@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8 -*-
 ;;
 ;; dupsyms.scm
-;; 2019-12-14 v1.03
+;; 2019-12-15 v1.04
 ;;
 ;; ＜内容＞
 ;;   Gauche で、import されたシンボルの重複チェックを行うための
@@ -17,6 +17,8 @@
 
 ;; check if the imported duplicate symbols exist.
 ;;  return is '((sym mod) (sym mod) ...)
+;; (macro is required because current-module is determined
+;;  at the compile time)
 (define-syntax dupsyms
   (syntax-rules ()
     [(_) (%dupsyms (current-module))]))
@@ -26,6 +28,7 @@
 
 ;; get the list consisting only of duplicate elements.
 ;;  e.g. '(1 2 2 3 4 4 4 5 6) ==> '(2 2 4 4 4)
+;; (input list must be sorted before passing to this procedure)
 (define (get-duplicates list :optional (cmpfn equal?) (keyfn identity))
   (let loop ([list list] [ret '()] [hit-prev #f])
     (if (null? list)
